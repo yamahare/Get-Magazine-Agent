@@ -14,7 +14,8 @@ set('git_tty', true);
 
 // Shared files/dirs between deploys 
 set('shared_files', [
-  'config/dbconfig.yml'
+  'config/dbconfig.yml',
+  'config/crontab.txt'
 ]);
 set('shared_dirs', [
   'magazines'
