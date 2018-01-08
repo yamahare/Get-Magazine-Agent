@@ -2,7 +2,8 @@ require 'open-uri' # URLにアクセスするためのライブラリの読み�
 require 'mysql2'
 require 'yaml'
 
-config = YAML.load_file("config/dbconfig.yml")
+#このファイルがあるパスを起点にして同階層のconfig/dbconfig.ymlを参照する
+config = YAML.load_file(File.expand_path('../config/dbconfig.yml', __FILE__))
 
 name = config["db"]["host"]
 user = config["db"]["user"]
@@ -35,11 +36,11 @@ path_array.each do |row|
   end
 
   #ディレクトリが存在しない場合作成する
-  if !(Dir.exist?(File.dirname(row[1]))) then
-    FileUtils.mkdir(File.dirname(row[1]))  
+  if !(Dir.exist?(File.expand_path('../', __FILE__) + File.dirname(row[1]))) then
+    FileUtils.mkdir(File.expand_path('../', __FILE__) + File.dirname(row[1]))  
   end
 
-  File.open(row[1], 'w') do |file|
+  File.open(File.expand_path('../', __FILE__) + row[1], 'w') do |file|
     file.puts(html)
   end
 end

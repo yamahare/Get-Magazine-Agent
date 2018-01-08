@@ -1,4 +1,4 @@
-require "./magazine.rb"
+require_relative "./magazine.rb"
 
 #変数初期化、Magazineクラスをアロケート
 pre_id = ""
@@ -37,9 +37,9 @@ results.each_with_index do |row, i|
     magazine = Magazine.new(row["magazine_id"]) 
   end
   
-  p "-----------------------------"
-  p row["magazine_id"]
-  p row["file_path"]
+  #p "-----------------------------"
+  #p row["magazine_id"]
+  #p row["file_path"]
   # サイトから発売日とタイトルをパース
   magazine.parse(row["file_path"]\
                 ,row["target"]\

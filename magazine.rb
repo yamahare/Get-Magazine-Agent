@@ -15,7 +15,7 @@ class Magazine
       @title        = ""
       @release_date = ""
 
-      config = YAML.load_file("config/dbconfig.yml")
+      config = YAML.load_file(File.expand_path('../config/dbconfig.yml', __FILE__))
 
       name = config["db"]["host"]
       user = config["db"]["user"]
@@ -128,14 +128,14 @@ class Magazine
   # main 雑誌のパース
   #-------------------------
   def parse(file_path, target, title_reg, release_reg)
-    doc = File.open(file_path) { |f| Nokogiri::HTML.parse(f) }
+    doc = File.open(File.expand_path('../', __FILE__) + file_path) { |f| Nokogiri::HTML.parse(f) }
     str = doc.css(target).inner_html
     str.tr!("０-９", "0-9")
-    p str
+    #p str
 
     # NOを取得
     if str.match(title_reg) then
-      p $1
+      #p $1
       @title = $1
       @title.gsub!(/<.+?>/,'')
     else #取得できなかった場合、ステータスを不正にする
@@ -145,7 +145,7 @@ class Magazine
 
     # 発売日を取得
     if str.match(release_reg) then
-      p "#{$1}月#{$2}日"
+      #p "#{$1}月#{$2}日"
       get_month  = $1.to_i
       get_date   = $2.to_i
       this_year  = Time.now.year
