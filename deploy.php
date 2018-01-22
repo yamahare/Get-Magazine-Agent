@@ -27,7 +27,7 @@ set('writable_dirs', []);
 
 // Hosts
 
-host('fumidai_vultr')
+host('magazine-checker')
     ->set('deploy_path', '~/{{application}}');    
     
 
